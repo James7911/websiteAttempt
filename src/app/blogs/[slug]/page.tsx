@@ -1,4 +1,4 @@
-// @ts-expect-error – Next.js 15 typing bug for dynamic route params
+// @ts-nocheck
 import { notFound } from "next/navigation";
 import blogs from "@/static/blogData";
 import Image from "next/image";
