@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import { notFound } from "next/navigation";
 import blogs from "@/static/blogData";
 import Image from "next/image";
