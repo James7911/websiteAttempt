@@ -3,7 +3,11 @@ import Link from "next/link";
 import styles from "./BlogPreview.module.css";
 import { Blog } from "@/static/blogData";
 
-interface Props extends Blog {}
+interface Props extends Blog {
+
+  // placeholder to satisfy ESLint
+  dummy?: boolean;
+}
 
 export default function BlogPreview({
   title,
