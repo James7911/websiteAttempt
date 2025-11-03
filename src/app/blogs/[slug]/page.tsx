@@ -1,13 +1,13 @@
-
 import { notFound } from "next/navigation";
 import blogs from "@/static/blogData";
 import Image from "next/image";
+import type { Metadata, ResolvingMetadata } from "next"; // optional, if you do metadata
 
-export default function BlogPost({
-  params,
-}: {
+interface BlogPageProps {
   params: { slug: string };
-}) {
+}
+
+export default function BlogPost({ params }: BlogPageProps) {
   const blog = blogs.find((b) => b.slug === params.slug);
   if (!blog) notFound();
 
