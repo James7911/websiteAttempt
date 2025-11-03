@@ -1,11 +1,16 @@
-"use client";
-
-import { useParams, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import blogs from "@/static/blogData";
 import Image from "next/image";
 
-export default function BlogPost() {
-  const { slug } = useParams();
+// ✅ Newer Next.js versions (14.2+ and 15) treat `params` as a Promise.
+// So we make the page async and await it.
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // 👈 get the slug from the awaited params
+
   const blog = blogs.find((b) => b.slug === slug);
   if (!blog) notFound();
 
@@ -17,7 +22,7 @@ export default function BlogPost() {
       {blog.image && (
         <Image
           src={blog.image}
-          alt={blog.imageAlt}
+          alt={blog.imageAlt || blog.title}
           width={400}
           height={400}
           className="rounded-lg mb-8 mx-auto"
@@ -30,4 +35,9 @@ export default function BlogPost() {
       />
     </article>
   );
+}
+
+// ✅ Generates all blog slugs at build time for static generation
+export async function generateStaticParams() {
+  return blogs.map((blog) => ({ slug: blog.slug }));
 }
