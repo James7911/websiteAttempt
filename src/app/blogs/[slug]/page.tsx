@@ -1,5 +1,12 @@
-export default function BlogPost({ params }: any) {
-  const blog = blogs.find((b) => b.slug === params.slug);
+"use client";
+
+import { useParams, notFound } from "next/navigation";
+import blogs from "@/static/blogData";
+import Image from "next/image";
+
+export default function BlogPost() {
+  const { slug } = useParams();
+  const blog = blogs.find((b) => b.slug === slug);
   if (!blog) notFound();
 
   return (
@@ -23,8 +30,4 @@ export default function BlogPost({ params }: any) {
       />
     </article>
   );
-}
-
-export async function generateStaticParams() {
-  return blogs.map((blog) => ({ slug: blog.slug }));
 }
